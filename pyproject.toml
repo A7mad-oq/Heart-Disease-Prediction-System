@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heart-disease-classifier"
+version = "1.0.0"
+description = "ML package for predicting heart disease using Logistic Regression, Decision Tree, Random Forest, and SVM."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Ahmad Al-oqdeh", email = "ahmad@example.com" },
+]
+requires-python = ">=3.9"
+keywords = ["machine-learning", "healthcare", "heart-disease", "classification"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "joblib>=1.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "black>=23.0",
+    "ruff>=0.1",
+    "mypy>=1.5",
+]
+notebook = [
+    "jupyter>=1.0",
+    "ipykernel>=6.0",
+]
+
+[project.scripts]
+heart-disease-train = "heart_disease_classifier.pipeline:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"heart_disease_classifier" = ["py.typed"]
+
+# ─── Black ───────────────────────────────────────────────────────────────── #
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311"]
+
+# ─── Ruff ────────────────────────────────────────────────────────────────── #
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
+
+# ─── Pytest ──────────────────────────────────────────────────────────────── #
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts   = "-v --tb=short"
+
+# ─── Coverage ────────────────────────────────────────────────────────────── #
+[tool.coverage.run]
+source = ["src/heart_disease_classifier"]
+omit   = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
